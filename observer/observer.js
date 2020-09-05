@@ -1,59 +1,55 @@
 // Subject
-var WeatherStation = /** @class */ (function () {
-    function WeatherStation() {
+class WeatherStation {
+    constructor() {
         this.observers = [];
     }
-    WeatherStation.prototype.registerObserver = function (o) {
+    registerObserver(o) {
         this.observers.push(o);
-    };
-    WeatherStation.prototype.removeObserver = function (o) {
-        var index = this.observers.indexOf(o);
+    }
+    removeObserver(o) {
+        let index = this.observers.indexOf(o);
         this.observers.splice(index, 1);
-    };
-    WeatherStation.prototype.notifyObservers = function () {
-        for (var _i = 0, _a = this.observers; _i < _a.length; _i++) {
-            var observer = _a[_i];
+    }
+    notifyObservers() {
+        for (let observer of this.observers) {
             observer.update(this.temperature);
         }
-    };
-    WeatherStation.prototype.setTemperature = function (temp) {
+    }
+    setTemperature(temp) {
         console.log("WeatherStation: new temperature measurement: " + temp);
         this.temperature = temp;
         this.notifyObservers();
-    };
-    return WeatherStation;
-}());
+    }
+}
 // Observer
-var TemperatureDisplay = /** @class */ (function () {
+class TemperatureDisplay {
     // register ourself as an observer
-    function TemperatureDisplay(weatherStation) {
+    constructor(weatherStation) {
         this.subject = weatherStation;
         weatherStation.registerObserver(this);
     }
-    TemperatureDisplay.prototype.update = function (temperature) {
+    update(temperature) {
         console.log("TemperatureDisplay: I need to update my display.");
         // Logic would go here
-    };
-    return TemperatureDisplay;
-}());
-var Fan = /** @class */ (function () {
+    }
+}
+class Fan {
     // register ourself as an observer
-    function Fan(weatherStation) {
+    constructor(weatherStation) {
         this.subject = weatherStation;
         weatherStation.registerObserver(this);
     }
-    Fan.prototype.update = function (temperature) {
+    update(temperature) {
         if (temperature > 25) {
             console.log("fan turns on");
         }
         else {
             console.log("fan turns off");
         }
-    };
-    return Fan;
-}());
-var weatherStation = new WeatherStation();
-var temperatureDisplay = new TemperatureDisplay(weatherStation);
-var fan = new Fan(weatherStation);
+    }
+}
+let weatherStation = new WeatherStation();
+let temperatureDisplay = new TemperatureDisplay(weatherStation);
+let fan = new Fan(weatherStation);
 weatherStation.setTemperature(20);
 weatherStation.setTemperature(26);

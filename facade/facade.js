@@ -1,63 +1,53 @@
 // A class that hides complexity behind a single method
-var Speaker = /** @class */ (function () {
-    function Speaker() {
-    }
-    Speaker.prototype.turnOn = function () {
+class Speaker {
+    turnOn() {
         console.log("TV is on.");
-    };
-    Speaker.prototype.turnOff = function () {
+    }
+    turnOff() {
         console.log("TV is off.");
-    };
-    Speaker.prototype.setVolume = function (volume) {
+    }
+    setVolume(volume) {
         this.volume = volume;
         console.log("Speaker volume is now: ", this.volume);
-    };
-    return Speaker;
-}());
-var TV = /** @class */ (function () {
-    function TV() {
     }
-    TV.prototype.turnOn = function () {
+}
+class TV {
+    turnOn() {
         console.log("TV is on.");
-    };
-    TV.prototype.turnOff = function () {
-        console.log("TV is off.");
-    };
-    return TV;
-}());
-var BluRayPlayer = /** @class */ (function () {
-    function BluRayPlayer() {
     }
-    BluRayPlayer.prototype.turnOn = function () {
+    turnOff() {
+        console.log("TV is off.");
+    }
+}
+class BluRayPlayer {
+    turnOn() {
         console.log("BluRay is on.");
-    };
-    BluRayPlayer.prototype.turnOff = function () {
+    }
+    turnOff() {
         console.log("BluRay is off.");
-    };
-    return BluRayPlayer;
-}());
-var HomeTheaterFacade = /** @class */ (function () {
-    function HomeTheaterFacade(speaker, bluray, tv) {
+    }
+}
+class HomeTheaterFacade {
+    constructor(speaker, bluray, tv) {
         this.bluray = bluray;
         this.tv = tv;
         this.speaker = speaker;
     }
     // perform some complex series of operations hidden under one method
-    HomeTheaterFacade.prototype.watchMovie = function () {
+    watchMovie() {
         this.tv.turnOn();
         this.bluray.turnOn();
         this.speaker.turnOn();
         this.speaker.setVolume(5);
-    };
-    HomeTheaterFacade.prototype.endMovie = function () {
+    }
+    endMovie() {
         this.tv.turnOff();
         this.bluray.turnOff();
         this.speaker.turnOff();
-    };
-    return HomeTheaterFacade;
-}());
-var bluray = new BluRayPlayer();
-var tv = new TV();
-var speaker = new Speaker();
-var homeTheater = new HomeTheaterFacade(speaker, bluray, tv);
+    }
+}
+let bluray = new BluRayPlayer();
+let tv = new TV();
+let speaker = new Speaker();
+let homeTheater = new HomeTheaterFacade(speaker, bluray, tv);
 homeTheater.watchMovie();

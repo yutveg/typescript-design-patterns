@@ -6,16 +6,14 @@ let lucky: 20;
 // or this
 let luck: number;
 // not this
-let luk: number = 23;
+let luk: number = 24;
 
 // creating a type
 type Style = "bold" | "italic";
 let font: Style;
 
 // annotate arguments               v-- return value
-function pow(x: number, y: number): string {
-  return Math.pow(x, y).toString();
-}
+const pow = (x: number, y: number): string => Math.pow(x, y).toString();
 
 // if no return value on a function
 function sendSomeRequest(a: object): void {

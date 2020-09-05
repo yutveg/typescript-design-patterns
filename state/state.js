@@ -1,84 +1,79 @@
-var Order = /** @class */ (function () {
-    function Order() {
+class Order {
+    constructor() {
         this.cancelledOrderState = new CancelOrderState(this);
         this.paymentPendingState = new PaymentPendingState(this);
         this.orderShippedState = new OrderShippedState(this);
         this.preparingOrderState = new PreparingOrderState(this);
         this.setState(this.paymentPendingState);
     }
-    Order.prototype.setState = function (state) {
+    setState(state) {
         this.currentState = state;
-    };
-    Order.prototype.getState = function () {
+    }
+    getState() {
         return this.currentState;
-    };
-    return Order;
-}());
-var PaymentPendingState = /** @class */ (function () {
-    function PaymentPendingState(order) {
+    }
+}
+class PaymentPendingState {
+    constructor(order) {
         this.order = order;
     }
-    PaymentPendingState.prototype.cancelOrder = function () {
+    cancelOrder() {
         console.log("Cancelling your order.");
         this.order.setState(this.order.cancelledOrderState);
-    };
-    PaymentPendingState.prototype.verifyPayment = function () {
+    }
+    verifyPayment() {
         console.log("Payment verified!");
         this.order.setState(this.order.preparingOrderState);
-    };
-    PaymentPendingState.prototype.shipOrder = function () {
+    }
+    shipOrder() {
         console.log("Cannot ship the order yet.");
-    };
-    return PaymentPendingState;
-}());
-var CancelOrderState = /** @class */ (function () {
-    function CancelOrderState(order) {
+    }
+}
+class CancelOrderState {
+    constructor(order) {
         this.order = order;
     }
-    CancelOrderState.prototype.cancelOrder = function () {
+    cancelOrder() {
         console.log("I'm sorry Dave, I'm afraid I can't do that.");
-    };
-    CancelOrderState.prototype.verifyPayment = function () {
+    }
+    verifyPayment() {
         console.log("I'm sorry Dave, I'm afraid I can't do that.");
-    };
-    CancelOrderState.prototype.shipOrder = function () {
+    }
+    shipOrder() {
         console.log("I'm sorry Dave, I'm afraid I can't do that.");
-    };
-    return CancelOrderState;
-}());
-var PreparingOrderState = /** @class */ (function () {
-    function PreparingOrderState(order) {
+    }
+}
+class PreparingOrderState {
+    constructor(order) {
         this.order = order;
     }
-    PreparingOrderState.prototype.cancelOrder = function () {
+    cancelOrder() {
         console.log("Cancelling your order.");
         this.order.setState(this.order.cancelledOrderState);
-    };
-    PreparingOrderState.prototype.verifyPayment = function () {
+    }
+    verifyPayment() {
         console.log("Payment has already been verified.");
-    };
-    PreparingOrderState.prototype.shipOrder = function () {
+    }
+    shipOrder() {
         console.log("Shipping order now.");
         this.order.setState(this.order.orderShippedState);
-    };
-    return PreparingOrderState;
-}());
-var OrderShippedState = /** @class */ (function () {
-    function OrderShippedState(order) {
+    }
+}
+class OrderShippedState {
+    constructor(order) {
         this.order = order;
     }
-    OrderShippedState.prototype.cancelOrder = function () {
+    cancelOrder() {
         console.log("I'm sorry Dave, I'm afraid I can't do that.");
-    };
-    OrderShippedState.prototype.verifyPayment = function () {
+    }
+    verifyPayment() {
         console.log("I'm sorry Dave, I'm afraid I can't do that.");
-    };
-    OrderShippedState.prototype.shipOrder = function () {
+    }
+    shipOrder() {
         console.log("I'm sorry Dave, I'm afraid I can't do that.");
-    };
-    return OrderShippedState;
-}());
-var order = new Order();
+    }
+}
+let order = new Order();
 console.log("An order has been placed. Order is currently in state: ", order.getState().constructor.name);
 order.getState().cancelOrder();
 console.log("Order is currently in state: ", order.getState().constructor.name);
